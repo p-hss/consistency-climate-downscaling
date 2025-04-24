@@ -452,7 +452,7 @@ class Consistency(LightningModule):
 
             noise = randn_tensor(shape, generator=generator, device=self.device)
 
-            images = images + math.sqrt(time.item() ** 2 - self.time_min**2) * noise + math.sqrt(time.item() ** 2 - self.time_min**2) * conditioning
+            images = images + math.sqrt(time.item() ** 2 - self.time_min**2) * noise 
 
             if sample_times[0] is None:
                 time = time[None]
