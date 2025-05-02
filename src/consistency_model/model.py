@@ -424,7 +424,7 @@ class Consistency(LightningModule):
 
         conditioning = conditioning.unsqueeze(1)
 
-        shape = (conditioning.shape[0], self.channels, x_image_size, y_image_size)
+        shape = (conditioning.shape[0], self.config.in_channels, x_image_size, y_image_size)
         noise = randn_tensor(shape, generator=generator, device=self.device)
 
         assert(noise.shape == conditioning.shape), f"noise shape is {noise.shape} and conditional shape is {conditioning.shape}"
