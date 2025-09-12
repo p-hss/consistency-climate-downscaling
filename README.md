@@ -2,7 +2,9 @@
 
 ## Overview
 
-This is the repository of the paper "Fast, scale-adaptive and uncertainty-aware downscaling of Earth system model fields with generative machine learning" (https://www.nature.com/articles/s42256-025-00980-5).
+This is the repository of the [paper](https://www.nature.com/articles/s42256-025-00980-5) "Fast, scale-adaptive and uncertainty-aware downscaling of Earth system model fields with generative machine learning".
+
+![Alt text](images/model_overview.png)
 
 ## Usage
 Set paths to training data and hyperparameters in `src/configuration.py`. Some can be changed via the shell when executing the training run with:
@@ -14,13 +16,34 @@ python main.py \
     --batch_size 8 
 ```
 
-## Test
+## Preprocessing
+
+The ERA5 data can be downloaded [here](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download). The data is in hourly resolution and needs to be downloaded in individual files. For merging the files and computing the daily mean, I recommend using the [Climate Data Operators](https://code.mpimet.mpg.de/projects/cdo).
+
+The files can then be merged using
+
+```bash
+cdo mergetime era5_hourly_* era5_hourly_merged.nc
+```
+
+The daily mean can be computed using
+
+```bash
+cdo daymean -shifttime,-1hour era5_hourly_merged.nc era5_daily_merged.nc
+
+```
+
+Other preprocessing steps such as transformations for standardization are implemeneted in the dataloader.
+
+
+## Tests
 
 Run unit tests with 
 
 ```bash
  python -m unittest discover tests/
 ```
+
 
 ## References
 The implementation is mostly based on the repositories:
